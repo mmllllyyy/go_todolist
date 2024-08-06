@@ -1,0 +1,6 @@
+[MySQL]
+DBHost = 127.0.0.1
+DBPort = 3306
+DBUser = root
+DBPassWord = Dwc258/*-
+DBName = todolist
