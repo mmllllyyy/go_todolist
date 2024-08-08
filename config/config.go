@@ -24,7 +24,8 @@ var DBConf DBConfType
 func LoadDBConf(file *ini.File) {
 	err := file.Section("MySQL").MapTo(&DBConf)
 	if err != nil {
-		log.Fatalln("Failed to map struct:", err)
+		log.Fatalln("Failed to map struct:" + err.Error())
+		return
 	}
 }
 

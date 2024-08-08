@@ -3,10 +3,10 @@ package db
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"log"
 	"strings"
 	"todolist/config"
 	"todolist/models"
+	"todolist/utils"
 )
 
 func MySQLInit() {
@@ -15,10 +15,15 @@ func MySQLInit() {
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatalln("Failed to connect mysql:%v", err)
+		utils.Logger.Error("Open database error:" + err.Error())
+		return
+	} else {
+		utils.Logger.Info("Open database done")
 	}
 
 	if err = db.AutoMigrate(models.User{}, models.Task{}); err != nil {
-		log.Fatalln("Failed to migrate models: ", err)
+		utils.Logger.Error("Failed to migrate models:", err)
+	} else {
+		utils.Logger.Info("Migrate database done")
 	}
 }
