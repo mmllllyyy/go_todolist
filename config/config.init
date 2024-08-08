@@ -4,3 +4,6 @@ DBPort = 3306
 DBUser = root
 DBPassWord = Dwc258/*-
 DBName = todolist
+
+[LogLevel]
+Level = Debug

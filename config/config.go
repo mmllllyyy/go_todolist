@@ -5,6 +5,12 @@ import (
 	"log"
 )
 
+var LogLevel string
+
+func LoadLogConf(file *ini.File) {
+	LogLevel = file.Section("LogLevel").Key("Level").String()
+}
+
 type DBConfType struct {
 	DBHost     string `ini:"DBHost"`
 	DbPort     string `ini:"DBPort"`
@@ -15,18 +21,18 @@ type DBConfType struct {
 
 var DBConf DBConfType
 
-func LoadDBConf() {
-	file, err := ini.Load("./config/config.init")
-	if err != nil {
-		log.Fatalln("Failed to load config.init:", err)
-	}
-
-	err = file.Section("MySQL").MapTo(&DBConf)
+func LoadDBConf(file *ini.File) {
+	err := file.Section("MySQL").MapTo(&DBConf)
 	if err != nil {
 		log.Fatalln("Failed to map struct:", err)
 	}
 }
 
 func Init() {
-	LoadDBConf()
+	file, err := ini.Load("./config/config.init")
+	if err != nil {
+		log.Fatalln("Failed to load config.init:", err)
+	}
+	LoadLogConf(file)
+	LoadDBConf(file)
 }
