@@ -1,6 +1,7 @@
 package db
 
 import (
+	"context"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"strings"
@@ -8,6 +9,8 @@ import (
 	"todolist/models"
 	"todolist/utils"
 )
+
+var _db *gorm.DB
 
 func MySQLInit() {
 	cfg := config.DBConf
@@ -26,4 +29,10 @@ func MySQLInit() {
 	} else {
 		utils.Logger.Info("Migrate database done")
 	}
+	_db = db
+}
+
+func NewDBClient(ctx context.Context) *gorm.DB {
+	db := _db
+	return db.WithContext(ctx)
 }
