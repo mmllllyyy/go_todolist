@@ -24,3 +24,9 @@ func (dao *UserDao) CreateUser(user *models.User) error {
 func (dao *UserDao) DeleteUser(name string) error {
 	return dao.Where("user_name = ?", name).Unscoped().Delete(&models.User{}).Error
 }
+
+func (dao *UserDao) FindUserByName(name string) (*models.User, error) {
+	var u *models.User
+	err := dao.Where("user_name = ?", name).First(&u).Error
+	return u, err
+}
