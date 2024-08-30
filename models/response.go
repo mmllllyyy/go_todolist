@@ -1,4 +1,4 @@
-package utils
+package models
 
 import (
 	"github.com/gin-gonic/gin"
@@ -11,10 +11,10 @@ const (
 )
 
 type ResponseVo struct {
-	Code     int32       `json:"code"`
-	Msg      string      `json:"msg"`
-	DataName string      `json:"dataName"`
-	Data     interface{} `json:"data,omitempty"`
+	Code     int32       `json:"code" form:"code"`
+	Msg      string      `json:"msg" form:"msg"`
+	DataName string      `json:"dataName" form:"dataName"`
+	Data     interface{} `json:"data,omitempty" form:"data"`
 }
 
 func SuccessResponse(ctx *gin.Context, dataName string, data interface{}) {
